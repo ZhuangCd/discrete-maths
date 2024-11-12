@@ -1,6 +1,7 @@
 # Discrete Maths Exercises in Python
 
-![Arc de Triomphe Spiral Staircase](https://upload.wikimedia.org/wikipedia/commons/5/53/Beaucoup_de_marches_%C3%A0_faire..._-_panoramio.jpg)
+![Looking Down Spiral Stairs - Paris](https://images.squarespace-cdn.com/content/v1/51a39504e4b093105c265c24/1492099314284-7OVCSVVE9V2D98YCF8RK/glenn-guy-looking-down-paris.jpg?format=1500w)
+
 
 ---
 
