@@ -19,7 +19,7 @@ def gcd(y, n):
         return n
 
 
-# calculate the inverse:
+# calculate the first inverse:
 # y mod n
 def multiplicative_inverse(y,n):
     if gcd(y,n) == 1:
@@ -32,6 +32,20 @@ def multiplicative_inverse(y,n):
         return False 
 
 
+# check if the number is an inverse
+# Form y * x = 1 mod n 
+def check_if_inverse(y,x,n):
+    # has an inverse if gcd = 1
+    if gcd(y,n) == 1:
+            if (y*x)%n == 1:
+                print(f"{x} is an inverse to {y} mod {n}")
+                return x
+            else:
+                print(f"{x} is NOT an inverse to {y} mod {n}")
+                return False
+    else:
+        print(f"{y} mod {n} has no inverse")
+        return False
 
 # Solve congruence system on the form yx ≡ b (mod n)
 def congruence_system(y, b, n):
@@ -44,8 +58,6 @@ def congruence_system(y, b, n):
     else:
         print("No solution exists")
         return None
-
-# Test the function
 
 
 # for the chinese reminder theorem 
@@ -99,13 +111,14 @@ def chinese_remainder_theorem(a, m):
     return total % prod
 
 # Example usage of chinese reminder theorem :
-a = [1, 2, 3,4]  # Remainders
-m = [2, 3, 5,11]  # Moduli
+a = [1,1,1,1]  # Remainders
+m = [20, 44]  # Moduli
 result = chinese_remainder_theorem(a, m)
 print(f"The solution to the system is: {result}")
 
 
-print("lcm is",lcm(50,15))
-print(f"gcd is {gcd(15,50)}")
-print(multiplicative_inverse(17,5))
-congruence_system(89, 2, 232)
+#print("lcm is",lcm(50,15))
+#print(f"gcd is {gcd(15,50)}")
+#print(multiplicative_inverse(9,10))
+#check_if_inverse(9,23,10)
+#congruence_system(89, 2, 232)
