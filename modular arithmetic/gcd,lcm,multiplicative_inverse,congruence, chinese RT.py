@@ -121,7 +121,7 @@ print(f"The solution to the system is: {result}")
 
 #print("lcm is",lcm(50,15))
 #print(f"gcd is {gcd(15,50)}")
-#print(multiplicative_inverse(9, 10))
+#print(multiplicative_inverse(9, 10), "And everything result + mod")
 #congruence_system(89, 2, 232)
 
 #modulo = 12
