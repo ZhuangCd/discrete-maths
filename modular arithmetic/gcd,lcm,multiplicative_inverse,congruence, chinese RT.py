@@ -1,4 +1,6 @@
 import math
+from sympy.ntheory.modular import crt
+
 
 def lcm(x, y):
     # Calculate the LCM using the formula LCM(x, y) = abs(x * y) // GCD(x, y)
@@ -31,7 +33,15 @@ def multiplicative_inverse(y,n):
         print("has no inverse")
         return False 
 
+# For example find the multiplicative inverse of modulo 12
 
+def find_multiplicative_inverses(modulo):
+    # Find numbers with multiplicative inverses modulo `modulo`
+    numbers_with_inverse = []
+    for a in range(1, modulo):  # 0 is not considered for inverse
+        if math.gcd(a, modulo) == 1:
+            numbers_with_inverse.append(a)
+    return numbers_with_inverse
 
 # Solve congruence system on the form yx ≡ b (mod n)
 def congruence_system(y, b, n):
@@ -59,10 +69,11 @@ def extended_gcd(a, b):
         y = x1 - (a // b) * y1
         return gcd, x, y
 
+
+# Modified: Chinese Remainder Theorem to handle non-coprime moduli
 def chinese_remainder_theorem(a, m):
-    
-    
-    """Solves the system of congruences using the Chinese Remainder Theorem.
+    """
+    Solves a system of congruences using a generalized CRT that supports non-coprime moduli.
     
     Args:
     a (list): List of remainders a_1, a_2, ..., a_n.
@@ -74,38 +85,44 @@ def chinese_remainder_theorem(a, m):
     # Ensure the lists a and m are of the same length
     assert len(a) == len(m), "Remainders and moduli lists must be of the same length."
     
-    # Initial values
-    total = 0
-    prod = 1
-    for mi in m:
-        prod *= mi
-    
-    # Iterate through each congruence
-    for ai, mi in zip(a, m):
-        # Compute the partial product of all moduli except the current one
-        p = prod // mi
-        
-        # Use the extended Euclidean algorithm to find the inverse of p modulo mi
-        gcd, inverse, _ = extended_gcd(p, mi)
-        
-        # Ensure that p and mi are coprime (gcd should be 1)
-        if gcd != 1:
-            raise ValueError(f"Moduli {mi} and {p} are not coprime, cannot apply CRT.")
-        
-        # Add the contribution of this congruence to the solution
-        total += ai * inverse * p
-    
-    # The solution is total modulo the product of all moduli
-    return total % prod
+    # Start with the first congruence
+    x = a[0]
+    mod = m[0]
 
-# Example usage of chinese reminder theorem :
-a = [1, 2, 3,4]  # Remainders
-m = [2, 3, 5,11]  # Moduli
+    for i in range(1, len(a)):
+        ai = a[i]
+        mi = m[i]
+
+        # Solve the congruence x ≡ a[i] (mod m[i])
+        gcd, inverse, _ = extended_gcd(mod, mi)
+
+        # Check if the system is consistent
+        if (ai - x) % gcd != 0:
+            raise ValueError(f"The system of congruences is inconsistent at moduli {mod} and {mi}.")
+        
+        # Adjust moduli and remainders for the solution
+        lcm = (mod // gcd) * mi  # Least common multiple of mod and mi
+        x = (x + (ai - x) // gcd * inverse * (mod // gcd)) % lcm  # Update x modulo lcm
+        mod = lcm  # Update mod to the lcm of the previous and current moduli
+
+    # Return the smallest non-negative solution
+    return x % mod
+
+# Example usage of Chinese Remainder Theorem:
+a = [1,1,1,1]  # Remainders
+m = [2,3,4,5]  # Moduli
 result = chinese_remainder_theorem(a, m)
 print(f"The solution to the system is: {result}")
 
 
-print("lcm is",lcm(50,15))
-print(f"gcd is {gcd(15,50)}")
-print(multiplicative_inverse(17,5))
-congruence_system(89, 2, 232)
+
+
+
+
+#print("lcm is",lcm(50,15))
+#print(f"gcd is {gcd(15,50)}")
+#print(multiplicative_inverse(9, 10))
+#congruence_system(89, 2, 232)
+
+#modulo = 12
+#print(find_multiplicative_inverses(modulo), f"And plus {modulo} to each result also")
