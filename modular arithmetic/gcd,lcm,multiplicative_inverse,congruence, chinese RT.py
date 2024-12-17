@@ -115,19 +115,23 @@ result = chinese_remainder_theorem(a, m)
 print(f"The solution to the CRT system is: {result}")
 
 
-def is_congruent_to_3_mod_7(number):
-    return number % 7 == 3
-# Check for 37
-print(is_congruent_to_3_mod_7(37))  # Output: False/True
+def is_congruent(a, b, n):
+    """
+    Checks if a ≡ b (mod n).
+    """
+    return a % n == b % n
+
+# Check 35 ≡ 1 (mod 17)
+result = is_congruent(35, 1, 17)
 
 
 
 
 
 
-#print("lcm is",lcm(50,15))
-#print(f"gcd is {gcd(15,50)}")
-#print(multiplicative_inverse(9, 10), "And everything result + mod")
+#print("lcm is",lcm(15,24))
+#print(f"gcd is {gcd(15,28)}")
+#print(multiplicative_inverse(5, 7), "And everything result + mod")
 #print(congruence_system(1, 43, 23))
 
  
