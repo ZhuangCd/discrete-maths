@@ -123,7 +123,14 @@ def is_congruent(a, b, n):
 
 # Check 35 ≡ 1 (mod 17)
 
-print("Is congurent:", is_congruent(35, 1, 17))
+print("Is congurent:", is_congruent(35, 1, 17)) #If we divide 35 by 17, the remainder will be 1.
+
+
+
+
+
+
+
 
 
 
