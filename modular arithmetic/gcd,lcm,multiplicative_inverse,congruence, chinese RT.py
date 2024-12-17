@@ -122,7 +122,8 @@ def is_congruent(a, b, n):
     return a % n == b % n
 
 # Check 35 ≡ 1 (mod 17)
-result = is_congruent(35, 1, 17)
+
+print("Is congurent:", is_congruent(35, 1, 17))
 
 
 
