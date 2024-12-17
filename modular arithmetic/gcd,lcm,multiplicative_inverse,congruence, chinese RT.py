@@ -112,7 +112,13 @@ def chinese_remainder_theorem(a, m):
 a = [1,1,1,1]  # Remainders
 m = [2,3,4,5]  # Moduli
 result = chinese_remainder_theorem(a, m)
-print(f"The solution to the system is: {result}")
+print(f"The solution to the CRT system is: {result}")
+
+
+def is_congruent_to_3_mod_7(number):
+    return number % 7 == 3
+# Check for 37
+print(is_congruent_to_3_mod_7(37))  # Output: False/True
 
 
 
@@ -122,7 +128,8 @@ print(f"The solution to the system is: {result}")
 #print("lcm is",lcm(50,15))
 #print(f"gcd is {gcd(15,50)}")
 #print(multiplicative_inverse(9, 10), "And everything result + mod")
-#congruence_system(89, 2, 232)
+#print(congruence_system(1, 43, 23))
 
+ 
 #modulo = 12
 #print(find_multiplicative_inverses(modulo), f"And plus {modulo} to each result also")
