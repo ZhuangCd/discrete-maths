@@ -1,4 +1,7 @@
 import math
+from functools import reduce
+
+# REMEBER TO PIPINSTALL THE ABOVE PACKAGES #
 
 def lcm(x, y):
     # Calculate the LCM using the formula LCM(x, y) = abs(x * y) // GCD(x, y)
@@ -30,7 +33,14 @@ def multiplicative_inverse(y,n):
     else:
         print("has no inverse")
         return False 
+# check if they are congurent
+# We say that a ≡ b (mod m) is a congruence
 
+def is_congurent(a,b,m):
+    if (a-b)%m == 0:
+        print(f"{a} ≡ {b} mod {m} is a congruence")
+    else:
+        print(f"{a} ≡ {b} mod {m} is NOT a congruence")
 
 # check if the number is an inverse
 # Form y * x = 1 mod n 
@@ -60,65 +70,41 @@ def congruence_system(y, b, n):
         return None
 
 
-# for the chinese reminder theorem 
-def extended_gcd(a, b):
-    """Extended Euclidean Algorithm to find gcd and the coefficients (x, y) of Bézout's identity."""
-    if b == 0:
-        return a, 1, 0
-    else:
-        gcd, x1, y1 = extended_gcd(b, a % b)
-        x = y1
-        y = x1 - (a // b) * y1
-        return gcd, x, y
 
-def chinese_remainder_theorem(a, m):
-    
-    
-    """Solves the system of congruences using the Chinese Remainder Theorem.
-    
-    Args:
-    a (list): List of remainders a_1, a_2, ..., a_n.
-    m (list): List of moduli m_1, m_2, ..., m_n.
-    
-    Returns:
-    int: The smallest non-negative solution to the system.
-    """
-    # Ensure the lists a and m are of the same length
-    assert len(a) == len(m), "Remainders and moduli lists must be of the same length."
-    
-    # Initial values
-    total = 0
-    prod = 1
-    for mi in m:
-        prod *= mi
-    
-    # Iterate through each congruence
-    for ai, mi in zip(a, m):
-        # Compute the partial product of all moduli except the current one
-        p = prod // mi
-        
-        # Use the extended Euclidean algorithm to find the inverse of p modulo mi
-        gcd, inverse, _ = extended_gcd(p, mi)
-        
-        # Ensure that p and mi are coprime (gcd should be 1)
-        if gcd != 1:
-            raise ValueError(f"Moduli {mi} and {p} are not coprime, cannot apply CRT.")
-        
-        # Add the contribution of this congruence to the solution
-        total += ai * inverse * p
-    
-    # The solution is total modulo the product of all moduli
-    return total % prod
-
-# Example usage of chinese reminder theorem :
-a = [1,1,1,1]  # Remainders
-m = [20, 44]  # Moduli
-result = chinese_remainder_theorem(a, m)
-print(f"The solution to the system is: {result}")
+def chinese_remainder(m, a):
+    sum = 0
+    prod = reduce(lambda acc, b: acc*b, m)
+    for n_i, a_i in zip(m, a):
+        p = prod // n_i
+        sum += a_i * mul_inv(p, n_i) * p
+    return sum % prod
+ 
+ 
+ 
+def mul_inv(a, b):
+    b0 = b
+    x0, x1 = 0, 1
+    if b == 1: return 1
+    while a > 1:
+        q = a // b
+        a, b = b, a%b
+        x0, x1 = x1 - q * x0, x0
+    if x1 < 0: x1 += b0
+    return x1
+ 
+ 
+ 
+if __name__ == '__main__':
+    # x = a mod m 
+    m= [3,4,7]
+    a = [1,1,0]
+    #print(chinese_remainder(m, a))
 
 
-#print("lcm is",lcm(50,15))
-#print(f"gcd is {gcd(15,50)}")
+#print("lcm is",lcm(300,15))
+#print(f"gcd is {gcd(9,35)}")
 #print(multiplicative_inverse(9,10))
 #check_if_inverse(9,23,10)
 #congruence_system(89, 2, 232)
+#is_congurent(-7,14+110,10)
+
