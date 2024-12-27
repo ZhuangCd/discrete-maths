@@ -1,5 +1,5 @@
 import math
-from sympy.ntheory.modular import crt
+from sympy.ntheory.modular import crt, solve_congruence
 
 
 def lcm(x, y):
@@ -74,21 +74,21 @@ def extended_gcd(a, b):
 def chinese_remainder_theorem(a, m):
     """
     Solves a system of congruences using a generalized CRT that supports non-coprime moduli.
-    
+
     Args:
     a (list): List of remainders a_1, a_2, ..., a_n.
     m (list): List of moduli m_1, m_2, ..., m_n.
-    
+
     Returns:
     int: The smallest non-negative solution to the system.
     """
     # Ensure the lists a and m are of the same length
     assert len(a) == len(m), "Remainders and moduli lists must be of the same length."
-    
+
     # Start with the first congruence
     x = a[0]
     mod = m[0]
-
+    
     for i in range(1, len(a)):
         ai = a[i]
         mi = m[i]
@@ -99,7 +99,7 @@ def chinese_remainder_theorem(a, m):
         # Check if the system is consistent
         if (ai - x) % gcd != 0:
             raise ValueError(f"The system of congruences is inconsistent at moduli {mod} and {mi}.")
-        
+
         # Adjust moduli and remainders for the solution
         lcm = (mod // gcd) * mi  # Least common multiple of mod and mi
         x = (x + (ai - x) // gcd * inverse * (mod // gcd)) % lcm  # Update x modulo lcm
@@ -125,7 +125,20 @@ def is_congruent(a, b, n):
 
 print("Is congurent:", is_congruent(35, 1, 17)) #If we divide 35 by 17, the remainder will be 1.
 
+# Solves congurences when they are not relative primes
+def solve_modular_system(congruences):
+   
+    solution = solve_congruence(*congruences)
+    if solution:
+        x, modulus = solution
+        return f"x ≡ {x} (mod {modulus})"
+    else:
+        return "No solution exists"
 
+# Example usage
+congruences = [(3, 4), (1, 6)]
+result = solve_modular_system(congruences)
+print(result)
 
 
 
