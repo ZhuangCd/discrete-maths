@@ -96,15 +96,15 @@ def mul_inv(a, b):
  
 if __name__ == '__main__':
     # x = a mod m 
-    m= [3,4,7]
-    a = [1,1,0]
-    #print(chinese_remainder(m, a))
+    m= [2,3,5]
+    a = [1,0,3]
+    print(chinese_remainder(m, a))
 
 
-#print("lcm is",lcm(300,15))
-#print(f"gcd is {gcd(9,35)}")
-#print(multiplicative_inverse(9,10))
+#print("lcm is",lcm(9,6))
+#print(f"gcd is {gcd(15,28)}")
+#print(multiplicative_inverse(5,17))
 #check_if_inverse(9,23,10)
-#congruence_system(89, 2, 232)
-#is_congurent(-7,14+110,10)
+#congruence_system(89, 2, 232)#
+#is_congurent(27,70,7)
 

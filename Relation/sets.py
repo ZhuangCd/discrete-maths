@@ -44,5 +44,5 @@ def analyze_relation(set_elements, relation):
 
 # Example usage
 set_elements = {'a', 'b', 'c'}
-relation = {('b', 'a'),("b","b"), ('a', 'a'), ('c', 'c')}  # Replace with your relation
+relation = {('a', 'b'),("b","b"), ('a', 'a'), ('a', 'c'), ("b","c"),("c","b"),("c","c")}  # Replace with your relation
 analyze_relation(set_elements, relation)
