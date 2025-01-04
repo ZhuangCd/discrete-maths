@@ -1,0 +1,37 @@
+#Question 10
+
+# Function 1: Check if two numbers are congruent modulo n
+def check_congruence(a, b, n):
+    return (a - b) % n == 0
+
+print("35 ≡ 1 (mod 17):", check_congruence(35, 1, 17))  # True
+
+
+# Function 2: Find equivalence under modulus
+def equivalence_modulo(a, b, n):
+    return a % n == b % n
+
+print("27 ≡ 70 (mod 7):", equivalence_modulo(27, 70, 7))  # True
+
+
+# Function 3: Combine modular equivalences
+def combine_modular_equivalences(a, b, mod1, mod2):
+    if a % mod1 == b % mod1:
+        return a % mod2 == b % mod2
+    return False
+
+print("a ≡ b (mod 15) ⇒ a ≡ b (mod 30):", combine_modular_equivalences(45, 75, 15, 30))  # True
+
+
+# Function 4: Scaling modular equivalence
+def scaling_modular_equivalence(a, factor, mod):
+    return (a * factor) % mod == (a % mod)
+
+print("a ≡ 8 (mod 10) ⇒ a ≡ 48 (mod 10):", scaling_modular_equivalence(8, 6, 10))  # True
+
+
+# Function 5: Multiplying congruences
+def multiply_modular_congruence(a, b, mod):
+    return (a * b) % mod
+
+print("a ≡ 8 (mod m) ∧ b ≡ 10 (mod m) ⇒ ab ≡ 80 (mod m):", multiply_modular_congruence(8, 10, 12))  # True

@@ -3,6 +3,8 @@ from functools import reduce
 
 # REMEBER TO PIPINSTALL THE ABOVE PACKAGES #
 
+from sympy.ntheory.modular import crt, solve_congruence
+
 def lcm(x, y):
     # Calculate the LCM using the formula LCM(x, y) = abs(x * y) // GCD(x, y)
     return abs(x * y) // math.gcd(x, y)
@@ -36,6 +38,7 @@ def multiplicative_inverse(y,n):
 # check if they are congurent
 # We say that a ≡ b (mod m) is a congruence
 
+
 def is_congurent(a,b,m):
     if (a-b)%m == 0:
         print(f"{a} ≡ {b} mod {m} is a congruence")
@@ -57,6 +60,17 @@ def check_if_inverse(y,x,n):
         print(f"{y} mod {n} has no inverse")
         return False
 
+# For example find the multiplicative inverse of modulo 12
+
+def find_multiplicative_inverses(modulo):
+    # Find numbers with multiplicative inverses modulo `modulo`
+    numbers_with_inverse = []
+    for a in range(1, modulo):  # 0 is not considered for inverse
+        if math.gcd(a, modulo) == 1:
+            numbers_with_inverse.append(a)
+    return numbers_with_inverse
+
+
 # Solve congruence system on the form yx ≡ b (mod n)
 def congruence_system(y, b, n):
     multi_in = multiplicative_inverse(y, n)
@@ -68,6 +82,7 @@ def congruence_system(y, b, n):
     else:
         print("No solution exists")
         return None
+
 
 
 
@@ -108,3 +123,93 @@ if __name__ == '__main__':
 #congruence_system(89, 2, 232)#
 #is_congurent(27,70,7)
 
+
+
+# Modified: Chinese Remainder Theorem to handle non-coprime moduli
+def chinese_remainder_theorem(a, m):
+    """
+    Solves a system of congruences using a generalized CRT that supports non-coprime moduli.
+
+    Args:
+    a (list): List of remainders a_1, a_2, ..., a_n.
+    m (list): List of moduli m_1, m_2, ..., m_n.
+
+    Returns:
+    int: The smallest non-negative solution to the system.
+    """
+    # Ensure the lists a and m are of the same length
+    assert len(a) == len(m), "Remainders and moduli lists must be of the same length."
+
+    # Start with the first congruence
+    x = a[0]
+    mod = m[0]
+    
+    for i in range(1, len(a)):
+        ai = a[i]
+        mi = m[i]
+
+        # Solve the congruence x ≡ a[i] (mod m[i])
+        gcd, inverse, _ = extended_gcd(mod, mi)
+
+        # Check if the system is consistent
+        if (ai - x) % gcd != 0:
+            raise ValueError(f"The system of congruences is inconsistent at moduli {mod} and {mi}.")
+
+        # Adjust moduli and remainders for the solution
+        lcm = (mod // gcd) * mi  # Least common multiple of mod and mi
+        x = (x + (ai - x) // gcd * inverse * (mod // gcd)) % lcm  # Update x modulo lcm
+        mod = lcm  # Update mod to the lcm of the previous and current moduli
+
+    # Return the smallest non-negative solution
+    return x % mod
+
+# Example usage of Chinese Remainder Theorem:
+a = [1,1,1,1]  # Remainders
+m = [2,3,4,5]  # Moduli
+result = chinese_remainder_theorem(a, m)
+print(f"The solution to the CRT system is: {result}")
+
+
+def is_congruent(a, b, n):
+    """
+    Checks if a ≡ b (mod n).
+    """
+    return a % n == b % n
+
+# Check 35 ≡ 1 (mod 17)
+
+print("Is congurent:", is_congruent(35, 1, 17)) #If we divide 35 by 17, the remainder will be 1.
+
+# Solves congurences when they are not relative primes
+def solve_modular_system(congruences):
+   
+    solution = solve_congruence(*congruences)
+    if solution:
+        x, modulus = solution
+        return f"x ≡ {x} (mod {modulus})"
+    else:
+        return "No solution exists"
+
+# Example usage
+congruences = [(3, 4), (1, 6)]
+result = solve_modular_system(congruences)
+print(result)
+
+
+
+
+
+
+
+
+
+
+
+#print("lcm is",lcm(15,24))
+#print(f"gcd is {gcd(15,28)}")
+#print(multiplicative_inverse(5, 7), "And everything result + mod")
+#print(congruence_system(1, 43, 23))
+
+ 
+#modulo = 12
+#print(find_multiplicative_inverses(modulo), f"And plus {modulo} to each result also")

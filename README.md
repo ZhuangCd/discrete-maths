@@ -21,7 +21,7 @@ This repo is for working together and writing a Python version of discrete mathe
 ### 🛠 How to Contribute
 1. Clone this repository.
 2. Create a new branch for each new exercise or feature.
-3. Submit a pull request for review.
+3. Submit a pull request for review. (Or just push your code:)
 
 ---
 
