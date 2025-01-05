@@ -22,6 +22,17 @@ def gcd(y, n):
         while y != 0:
             n,y = y, n % y
         return n
+    
+    # Extended Euclidean Algorithm to find gcd and the inverses
+def extended_gcd(a, b):
+    if b == 0:
+        return a, 1, 0  # GCD(a, b) = a, and the coefficients are 1 and 0
+    else:
+        g, x1, y1 = extended_gcd(b, a % b)  # Recursively call for b and a mod b
+        x = y1
+        y = x1 - (a // b) * y1  # Update the coefficients
+        return g, x, y
+
 
 
 # calculate the first inverse:
@@ -123,7 +134,7 @@ if __name__ == '__main__':
 #congruence_system(89, 2, 232)#
 #is_congurent(27,70,7)
 
-
+print("Mul inv is", mul_inv(5,17))
 
 # Modified: Chinese Remainder Theorem to handle non-coprime moduli
 def chinese_remainder_theorem(a, m):
