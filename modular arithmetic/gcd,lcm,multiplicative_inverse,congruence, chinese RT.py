@@ -175,10 +175,11 @@ def chinese_remainder_theorem(a, m):
     return x % mod
 
 # Example usage of Chinese Remainder Theorem:
-a = [1,1,1,1]  # Remainders
-m = [2,3,4,5]  # Moduli
-result = chinese_remainder_theorem(a, m)
-print(f"The solution to the CRT system is: {result}")
+a = [1,2,3]  # Remainders
+m = [2,4,6]  # Moduli
+#result = chinese_remainder_theorem(a, m)
+
+#print(f"The solution to the CRT system is: {result}")
 
 
 def is_congruent(a, b, n):
@@ -189,7 +190,7 @@ def is_congruent(a, b, n):
 
 # Check 35 ≡ 1 (mod 17)
 
-print("Is congurent:", is_congruent(35, 1, 17)) #If we divide 35 by 17, the remainder will be 1.
+print("Is congurent:", is_congruent(21, 56**2, 5)) #If we divide 35 by 17, the remainder will be 1.
 
 # Solves congurences when they are not relative primes
 def solve_modular_system(congruences):
@@ -204,7 +205,7 @@ def solve_modular_system(congruences):
 # Example usage
 congruences = [(3, 4), (1, 6)]
 result = solve_modular_system(congruences)
-print(result)
+#print(result)
 
 
 
@@ -216,8 +217,8 @@ print(result)
 
 
 
-#print("lcm is",lcm(15,24))
-#print(f"gcd is {gcd(15,28)}")
+#print("lcm is",lcm(12,49))
+print(f"gcd is {gcd(6,3)}")
 #print(multiplicative_inverse(5, 7), "And everything result + mod")
 #print(congruence_system(1, 43, 23))
 

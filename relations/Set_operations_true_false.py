@@ -27,8 +27,8 @@ variables = ['A', 'B', 'C']
 
 # Define various set operations
 operations = {
-    "A and not(B or C)": lambda A, B, C: A and (B or C),
-    "A and not B) or (A and not C)": lambda A, B, C: (A and B) or (A and C), 
+    "First": lambda A, B, C: A and not (B or C),
+    "Second": lambda A,B, C: (A and not B) or (A and not C)
 }
 """
     "A union B": lambda A, B, C: A or B, # A u B

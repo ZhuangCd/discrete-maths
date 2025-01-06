@@ -1,9 +1,11 @@
 # Define the set of elements and the set of relations as inputs.
-base_set = {1, 2, 3, 4}
+base_set = {"a", "b", "c", "d"}
 relations = {
-    (1, 1),
-    (1, 2),
-    (2, 3),
+    ("1","2"),
+    ("2", "1"),
+    ("2","3"),
+    ("2", "4"),
+    ("3","2"),
 }  # Sample relation set
 
 
@@ -39,6 +41,12 @@ def is_transitive(relations: set[tuple[int, int]]) -> bool:
                 return False
     return True
 
+#reflexive, symmetric, and transitive Equivalence relations
+
+def is_equivalence(base_set,relations) -> bool:
+    if is_reflexive(base_set,relations) and is_symmetric(relations) and (is_transitive(relations)):
+        return True
+    return False
 
 def is_partial_order(base_set, relations) -> bool:
     return (
@@ -117,3 +125,48 @@ def transitive_closure(relations: set[tuple[int, int]]) -> set[tuple[int, int]]:
 
     print(f"The missing relations added are: {missing_relations}")
     return missing_relations.union(relations)
+
+# with it self, fx R^2 or R^3
+def relation_composition_with_it_self(relation, n):
+    """
+    Calculate the n-th composition of a relation with itself fx R^2 or R^3
+    Just adjust n to be the exponent
+
+    Args:
+        relation (set of tuple): A set of ordered pairs representing the relation.
+        n (int): The number of compositions.
+
+    Returns:
+        set of tuple: The resulting set of ordered pairs after n compositions.
+    """
+    composed_relation = relation  # Start with the base relation
+    for _ in range(n - 1):  # Perform n-1 compositions
+        new_composed_relation = set()
+        for (a, b) in composed_relation:
+            for (c, d) in relation:
+                if b == c:
+                    new_composed_relation.add((a, d))
+        composed_relation = new_composed_relation
+    return composed_relation
+
+
+# Fx R1 o R2
+def relation_composition_with_another(R1, R2):
+    """
+    Calculate the composition of two relations, R1 and R2.
+
+    Args:
+        R1 (set of tuple): The first relation (a set of ordered pairs).
+        R2 (set of tuple): The second relation (a set of ordered pairs).
+
+    Returns:
+        set of tuple: The resulting set of ordered pairs after composition.
+    """
+    composed_relation = set()
+    for (a, b) in R1:
+        for (c, d) in R2:
+            if b == c:
+                composed_relation.add((a, d))
+    return composed_relation
+
+print(relation_composition_with_another(relations, relations))
