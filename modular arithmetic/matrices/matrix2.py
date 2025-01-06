@@ -27,14 +27,16 @@ def boolean_product(matrix1, matrix2):
 
 # Example usage:
 if __name__ == "__main__":
-    A = np.array([[1, 2], [3, 4]])
+    A = np.array([[1, 2,3], 
+                  [1, 2,3],
+                  [1, 2,3]])
     B = np.array([[5, 6], [7, 8]])
 
     print("Matrix A:\n", A)
     print("Matrix B:\n", B)
 
     print("\nTranspose of A:\n", transpose_matrix(A))
-    print("\nInverse of A:\n", inverse_matrix(A))
-    print("\nA multiplied by B:\n", multiply_matrices(A, B))
+    #print("\nInverse of A:\n", inverse_matrix(A))
+    print("\nA multiplied by A:\n", multiply_matrices(A, A))
     print("\nA raised to the power of 2:\n", power_matrix(A, 2))
     print("\nBoolean product of A and B:\n", boolean_product(A, B))
