@@ -129,12 +129,12 @@ if __name__ == '__main__':
 
 #print("lcm is",lcm(9,6))
 #print(f"gcd is {gcd(15,28)}")
-#print(multiplicative_inverse(5,17))
+print(multiplicative_inverse(5,17))  # find 7 is the multiplicative inverse of 5 mod 17? check if the result is 7 and add + 17 k, result is 
 #check_if_inverse(9,23,10)
-#congruence_system(89, 2, 232)#
+print("Congurent system solution", congruence_system( 5, 7, 11)) # check if 5x = 7 mod 11 
 #is_congurent(27,70,7)
 
-print("Mul inv is", mul_inv(5,17))
+#print("Mul inv is", mul_inv(5,17))
 
 # Modified: Chinese Remainder Theorem to handle non-coprime moduli
 def chinese_remainder_theorem(a, m):
@@ -175,10 +175,10 @@ def chinese_remainder_theorem(a, m):
     return x % mod
 
 # Example usage of Chinese Remainder Theorem:
-a = [1,1,1,1]  # Remainders
-m = [2,3,4,5]  # Moduli
+a = [1,0,3]  # Remainders
+m = [2,3,5]  # Moduli
 result = chinese_remainder_theorem(a, m)
-print(f"The solution to the CRT system is: {result}")
+print(f"The solution to the CRT system is: {result}") #if they are coprimes there is only one sulition, and then the next is the * of the mods like result 3 + 30k
 
 
 def is_congruent(a, b, n):
@@ -224,3 +224,9 @@ print(result)
  
 #modulo = 12
 #print(find_multiplicative_inverses(modulo), f"And plus {modulo} to each result also")
+
+# 90 mod 5
+"""
+result = 90 % 5
+print(result)
+"""
