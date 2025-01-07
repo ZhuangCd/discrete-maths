@@ -132,7 +132,6 @@ if __name__ == '__main__':
 print(multiplicative_inverse(5,17))  # find 7 is the multiplicative inverse of 5 mod 17? check if the result is 7 and add + 17 k, result is 
 #check_if_inverse(9,23,10)
 print("Congurent system solution", congruence_system( 5, 7, 11)) # check if 5x = 7 mod 11 
-#is_congurent(27,70,7)
 
 #print("Mul inv is", mul_inv(5,17))
 
@@ -181,7 +180,7 @@ result = chinese_remainder_theorem(a, m)
 print(f"The solution to the CRT system is: {result}") #if they are coprimes there is only one sulition, and then the next is the * of the mods like result 3 + 30k
 
 
-def is_congruent(a, b, n):
+def is_congruent(a, b, n): 
     """
     Checks if a ≡ b (mod n).
     """
